@@ -1,0 +1,13 @@
+node_modules
+dist
+.next
+.turbo
+pnpm-lock.yaml
+packages/api-contract/src/generated
+packages/api-contract/dist
+packages/platform/migrations
+.pgdata
+docs/specifications
+docs/adr
+docs/architecture
+CLAUDE.md

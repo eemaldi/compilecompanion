@@ -1,0 +1,7 @@
+// Bootstrap schema (CS-00): datasource only, no models and no generated client yet.
+// Module schemas (ADR-003 multiSchema) and per-module clients arrive with CS-01.
+// Prisma is confined to platform/infrastructure and is never importable from domain code
+// (enforced by `pnpm arch`).
+datasource db {
+  provider = "postgresql"
+}

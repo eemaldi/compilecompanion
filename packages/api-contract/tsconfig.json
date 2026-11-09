@@ -1,0 +1,1 @@
+{ "extends": "../../tooling/tsconfig/typecheck.json", "include": ["src", "vitest.config.mts"] }

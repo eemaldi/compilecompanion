@@ -1,0 +1,12 @@
+get:
+  operationId: getHealth
+  summary: Liveness probe
+  description: Reports that the process is up. Contains no business logic and no dependency checks.
+  tags: [Platform]
+  responses:
+    '200':
+      description: The service is alive.
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas.yaml#/Health

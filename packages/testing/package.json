@@ -1,0 +1,11 @@
+{
+  "name": "@cc/testing",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "type": "module"
+}

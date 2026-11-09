@@ -1,0 +1,22 @@
+{
+  "name": "@cc/api-contract",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./openapi.bundle.yaml": "./openapi.bundle.yaml"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint . && spectral lint openapi.bundle.yaml --fail-severity=warn",
+    "test": "vitest run",
+    "openapi:check": "node scripts/generate.mjs --check"
+  }
+}

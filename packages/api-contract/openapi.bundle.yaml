@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: Compile Companion API
+  version: 0.0.0
+  contact:
+    name: Compile Companion maintainers
+  description: |
+    Source of truth for the REST boundary (ADR-013, contract-first). Bundled and reproducibly generated into openapi.bundle.yaml and src/generated/schema.d.ts.
+servers:
+  - url: /v1
+tags:
+  - name: Platform
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Liveness probe
+      description: Reports that the process is up. Contains no business logic and no dependency checks.
+      tags:
+        - Platform
+      responses:
+        '200':
+          description: The service is alive.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+components:
+  schemas:
+    Health:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok

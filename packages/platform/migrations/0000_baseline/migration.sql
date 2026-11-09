@@ -1,0 +1,2 @@
+-- 0000_baseline: intentionally empty initial migration (CS-00).
+-- Establishes the migration history; schemas and roles arrive in 0001_schemas_and_roles (CS-01).

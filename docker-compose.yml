@@ -1,0 +1,20 @@
+# Local development PostgreSQL (ADR-003: PostgreSQL >= 16). Dev-only credentials.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: cc
+      POSTGRES_PASSWORD: cc_dev_only
+      POSTGRES_DB: cc
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U cc -d cc']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:

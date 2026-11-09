@@ -1,0 +1,4 @@
+{
+  "extends": "../../tooling/tsconfig/typecheck.json",
+  "include": ["src", "vitest*.mts", "prisma.config.ts"]
+}

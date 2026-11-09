@@ -1,0 +1,26 @@
+{
+  "name": "@cc/platform",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:integration": "node scripts/with-postgres.mjs sh -c \"node scripts/validate-migrations.mjs && vitest run --config vitest.integration.config.mts\"",
+    "db:validate": "node scripts/with-postgres.mjs node scripts/validate-migrations.mjs"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.1",
+    "prisma": "7.10.1"
+  }
+}

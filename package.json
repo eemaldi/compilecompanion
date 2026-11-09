@@ -1,0 +1,41 @@
+{
+  "name": "compilecompanion",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "arch": "depcruise --config tooling/dependency-cruiser/dependency-cruiser.cjs apps packages",
+    "sast": "eslint --config tooling/eslint/sast.config.mjs .",
+    "secrets": "secretlint --secretlintrc tooling/secretlint/.secretlintrc.json --secretlintignore .secretlintignore \"**/*\"",
+    "gates": "node tooling/scripts/gates.mjs",
+    "db:up": "docker compose up -d --wait postgres",
+    "lint:root": "eslint tooling eslint.config.mjs",
+    "db:down": "docker compose down"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@redocly/cli": "^2.77.0",
+    "@secretlint/secretlint-rule-preset-recommend": "^13.1.0",
+    "@stoplight/spectral-cli": "^6.17.1",
+    "@types/node": "^22.20.5",
+    "dependency-cruiser": "^18.7.2",
+    "eslint": "^9.39.5",
+    "eslint-plugin-security": "^4.2.1",
+    "openapi-typescript": "^7.13.0",
+    "prettier": "^3.9.10",
+    "secretlint": "^13.1.0",
+    "turbo": "^2.11.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  }
+}
