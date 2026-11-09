@@ -1,8 +1,8 @@
 # ADR-011: Randomness riproducibile
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §9.4, §8, §16; PRT-RND-005, STD-SEED-001..003, TRN-PAIR-003, OD-014, OD-015
 - **Change set impattati:** CS-10, CS-11
 

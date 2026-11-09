@@ -1,8 +1,8 @@
 # ADR-003: Data ownership fisica: schema per modulo
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §11, §17.2; ARCH-OWN-001, OD-011
 - **Change set impattati:** CS-01 e tutti i CS con migration
 

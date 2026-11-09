@@ -1,8 +1,8 @@
 # ADR-012: Algoritmo e funzione obiettivo del pairing
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §7, §16 Pairing/Bye; TRN-PAIR-*, TRN-FLT-*, TRN-BYE-*, TRN-RMT-*, OD-002
 - **Change set impattati:** CS-12b, CS-14
 
@@ -13,7 +13,7 @@
 
 Definizioni:
 - `group(p)` = record (W, L) dopo l'ultimo Round FINALIZED;
-- `rank(p)` = posizione nell'ordinamento della `SeedingPolicy` (standings correnti, con il technical seed come ultimo criterio);
+- `rank(p)` = posizione nell'ordinamento della `SeedingPolicy` (standings correnti secondo ADR-014, con il technical seed come ultimo criterio);
 - un pairing completo assegna ogni Participant attivo a esattamente un match o al bye.
 
 **Hard constraint** (mai violati): ogni attivo compare esattamente una volta; nessun self-pairing; al massimo un bye e solo se P è dispari; nessun Participant inventato o escluso.
@@ -70,4 +70,4 @@ OD-002 è chiuso.
 - Esempi worked (5-8 scenari) approvati dal product owner come golden test.
 
 ## Domande aperte
-Nessuna. Prima dell'approvazione servono gli esempi worked da usare come golden test.
+Nessuna. Gli esempi worked (5-8 scenari) vanno prodotti e validati nella review di CS-12b.

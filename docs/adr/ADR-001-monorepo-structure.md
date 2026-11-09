@@ -1,8 +1,8 @@
 # ADR-001: Struttura del monorepo e wiring dei framework
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §1, §19 AP-01/AP-06; ARCH-STACK-001, ARCH-DOM-001/002
 - **Change set impattati:** CS-00
 

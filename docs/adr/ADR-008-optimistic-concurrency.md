@@ -1,8 +1,8 @@
 # ADR-008: Optimistic concurrency via HTTP
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §14.4, §14.5, §15; CONC-RES-001/002
 - **Change set impattati:** CS-02, CS-06, CS-09, CS-11, CS-15, CS-17
 

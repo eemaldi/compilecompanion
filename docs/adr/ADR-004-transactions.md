@@ -1,8 +1,8 @@
 # ADR-004: Transazioni cross-module e Unit of Work
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §14, §19 AP-03; CONC-*, OD-017
 - **Change set impattati:** CS-02, CS-08, CS-10, CS-11, CS-14, CS-15, CS-17
 

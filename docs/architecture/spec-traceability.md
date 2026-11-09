@@ -1,7 +1,7 @@
 # Spec Traceability Matrix
 
 **Fonte normativa:** `docs/specifications/compile-companion-v1.md` (v1.0, Baseline)
-**ADR esistenti:** nessuno · **Contratti OpenAPI esistenti:** nessuno · **Codice esistente:** nessuno
+**ADR:** ADR-001…014 Accepted (`docs/adr/`) · **Contratti OpenAPI esistenti:** nessuno · **Codice esistente:** nessuno
 **Data baseline matrice:** 2026-11-09
 
 ## Convenzioni
@@ -68,7 +68,7 @@
 
 | ID | § | Requisito sintetico | Livello | Modulo | Enforcement | Test | Stato |
 |---|---|---|---|---|---|---|---|
-| AUTH-PUB-001 | 6 | Anonimo vede eventi pubblici, avvia registration quando permessa, si autentica | MAY | Event, Participation | APP | E | BLOCKED(OD-016) |
+| AUTH-PUB-001 | 6 | Anonimo vede eventi pubblici, avvia registration quando permessa, si autentica | MAY | Event, Participation | APP | E | NOT_STARTED |
 | AUTH-PUB-002 | 6 | Anonimo non vede info amministrative, audit, non modifica tornei né assignment altrui | MUST NOT† | Tutti | APP | S, E | NOT_STARTED |
 | AUTH-PLY-001 | 6 | Player si registra solo con registration aperta | MUST† | Participation | APP, DOM | U, I | NOT_STARTED |
 | AUTH-PLY-002 | 6 | Player seleziona i propri Protocol solo in PLAYER_SELECTION prima del lock | MUST† | Protocol Assignment | APP, DOM | U, I | NOT_STARTED |
@@ -76,7 +76,7 @@
 | AUTH-PLY-004 | 6 | Player vede il proprio pairing | MAY | Tournament | APP | E | NOT_STARTED |
 | AUTH-PLY-005 | 6, 16 | Player reporta/accetta/contesta solo risultati di propri Match | MUST† | Results | APP | U, I, S | NOT_STARTED |
 | AUTH-PLY-006 | 6 | Player non modifica risultati altrui, pairing, Round, Protocol dopo lock, configurazione Event | MUST NOT† | Results, Tournament, Assignment, Event | APP | S, E | NOT_STARTED |
-| AUTH-PLY-007 | 6 | Player effettua drop quando consentito | MAY | Participation | APP, DOM | U, I | BLOCKED(OD-008) |
+| AUTH-PLY-007 | 6 | Player effettua drop quando consentito | MAY | Participation | APP, DOM | U, I | NOT_STARTED |
 | AUTH-TO-001 | 6 | TO con permessi sull'Organization esegue le operazioni di gestione evento elencate in §6 | MUST† | Organization (policy) + moduli | APP | I, E | NOT_STARTED |
 | AUTH-TO-002 | 6, 4.3 | TO non modifica Round FINALIZED | MUST NOT | Tournament, Results | DOM, DB | U, I | NOT_STARTED |
 | AUTH-TO-003 | 6 | Solo TO/OWNER vedono audit | MUST† | Audit | APP | S | NOT_STARTED |
@@ -99,21 +99,21 @@
 |---|---|---|---|---|---|---|---|
 | EVT-INV-001 | 4.1 | Event appartiene a esattamente una Organization | MUST | Event | DOM, DB | U, I | NOT_STARTED |
 | EVT-INV-002 | 4.1 | Un solo assignment mode attivo (PLAYER_SELECTION \| RANDOM_DRAFT) | MUST | Event | DOM, DB (enum NOT NULL) | U | NOT_STARTED |
-| EVT-INV-003 | 4.1 | Il torneo non inizia senza plannedRounds valido | MUST NOT | Event | DOM, APP | U | BLOCKED(OD-006) |
+| EVT-INV-003 | 4.1 | Il torneo non inizia senza plannedRounds valido | MUST NOT | Event | DOM, APP | U | NOT_STARTED |
 | EVT-INV-004 | 4.1 | Il torneo non inizia con meno di due Participant attivi | MUST NOT | Event (via Participation query) | APP, TX | U, I | NOT_STARTED |
 | EVT-INV-005 | 2.5, 4.1 | Nessuna late registration dopo l'inizio | MUST NOT | Participation | DOM, TX (lock su Event status) | U, I | NOT_STARTED |
-| EVT-SM-001 | 5.1 | State machine DRAFT → REGISTRATION_OPEN → REGISTRATION_CLOSED → PROTOCOL_ASSIGNMENT → READY_TO_START → IN_PROGRESS → COMPLETED; CANCELLED alternativo | MUST† | Event | DOM, OCC | U, P | BLOCKED(OD-009) |
+| EVT-SM-001 | 5.1 | State machine DRAFT → REGISTRATION_OPEN → REGISTRATION_CLOSED → PROTOCOL_ASSIGNMENT → READY_TO_START → IN_PROGRESS → COMPLETED; CANCELLED alternativo | MUST† | Event | DOM, OCC | U, P | NOT_STARTED |
 | EVT-SM-002 | 5.1 | READY_TO_START solo con registrazione chiusa, Participant definitivi, 3 Protocol validi per attivo, config valida, ≥2 attivi | MUST† | Event | APP, TX | U, I | NOT_STARTED |
 | EVT-SM-003 | 5.1, 5.5 | Ingresso in IN_PROGRESS provoca il lock dei Protocol Assignment nella stessa transazione | MUST† | Event, Assignment | TX, APP | I | NOT_STARTED |
 | EVT-SM-004 | 15 | Transizioni non consentite → INVALID_STATE_TRANSITION | MUST† | Event | DOM | U | NOT_STARTED |
 | EVT-POOL-001 | 9.2 | TO seleziona uno o più Product | MUST† | Event | DOM (≥1 Product), API | U | NOT_STARTED |
 | EVT-POOL-002 | 9.2 | EventProtocolPool = union dei Protocol dei Product selezionati | MUST† | Event | DOM | U, P | NOT_STARTED |
-| EVT-POOL-003 | 9.2 | L'Event conserva la configurazione usata (snapshot) | MUST† | Event | DB (snapshot tabelle Event) | I | BLOCKED(OD-004) |
+| EVT-POOL-003 | 9.2 | L'Event conserva la configurazione usata (snapshot) | MUST† | Event | DB (snapshot tabelle Event) | I | NOT_STARTED |
 | EVT-POOL-004 | 9.2 | Modifiche al catalogo non alterano tornei iniziati/conclusi | MUST NOT | Event | DB (snapshot) | I | NOT_STARTED |
 | EVT-POOL-005 | 9.3 | v1: solo Product completi abilitabili; niente ban/allow-list di singoli Protocol | MUST NOT† | Event | API, DOM | C | NOT_STARTED |
 | EVT-POOL-006 | 9.3 | Modello dati che permetta in futuro ban/allow-list/restricted/rotations | SHOULD | Event | DB (pool snapshot per-Protocol) | — | NOT_STARTED |
 | EVT-API-001 | 10 | Events API non implementa il pairing | MUST NOT | Event | ARCH | A | NOT_STARTED |
-| EVT-CFG-001 | 13 | Modifiche configurazione dopo pubblicazione sono auditate | MUST | Event, Audit | APP | I | BLOCKED(OD-009) |
+| EVT-CFG-001 | 13 | Modifiche configurazione dopo pubblicazione sono auditate | MUST | Event, Audit | APP | I | NOT_STARTED |
 
 ## 7. Participation (§2.5, §3.7, §4.5, §5.2)
 
@@ -122,7 +122,7 @@
 | PAR-INV-001 | 3.7 | Participant per Event distinto da User; User MAY partecipare a molti Event | MUST† | Participation | DB (UNIQUE `event_id,user_id`) | I | NOT_STARTED |
 | PAR-SM-001 | 5.2 | (OD-001: check-in obbligatorio; chi non lo fa passa a WITHDRAWN a READY_TO_START) REGISTERED → CHECKED_IN; REGISTERED → WITHDRAWN; CHECKED_IN → DROPPED (durante torneo); → DISQUALIFIED (eccezionale) | MUST† | Participation | DOM, OCC | U, P | NOT_STARTED |
 | PAR-SM-002 | 5.2 | DROPPED/DISQUALIFIED non tornano automaticamente attivi | MUST NOT | Participation | DOM | U | NOT_STARTED |
-| PAR-INV-002 | 4.5 | Player DROPPED mantiene storico e risultati, non partecipa ai Round successivi | MUST† | Participation, Tournament | DOM | U, I | BLOCKED(OD-008) |
+| PAR-INV-002 | 4.5 | Player DROPPED mantiene storico e risultati, non partecipa ai Round successivi | MUST† | Participation, Tournament | DOM | U, I | NOT_STARTED |
 | PAR-INV-003 | 4.2, 9.2 | In RANDOM_DRAFT nessuna registrazione oltre floor(N/3) senza modifica del pool | MUST NOT | Participation (query Event pool) | TX, DB | I (concorrente) | NOT_STARTED |
 | PAR-API-001 | 10 | Participants API non scrive risultati Match | MUST NOT | Participation | ARCH | A | NOT_STARTED |
 | PAR-AUD-001 | 13 | Aggiunta/rimozione amministrativa, disqualification, drop amministrativo auditati con reason | MUST | Participation, Audit | APP | I | NOT_STARTED |
@@ -139,13 +139,13 @@
 | PRT-RND-002 | 4.2, 9.4 | Capacità = floor(N/3); valido solo se 3P ≤ N | MUST† | Assignment | DOM | U, P | NOT_STARTED |
 | PRT-RND-003 | 15 | Pool insufficiente → PROTOCOL_POOL_INSUFFICIENT con required/available/participant/maximum count | MUST† | Assignment | DOM | U, C | NOT_STARTED |
 | PRT-RND-004 | 2.6 | Random Draft generato dal TO | MUST† | Assignment | APP | S | NOT_STARTED |
-| PRT-RND-005 | 9.4 | Randomness con sorgente iniettabile e riproducibile (seed persistito) | MUST† | Assignment | DOM (porta RNG) | U, P | BLOCKED(OD-014) |
+| PRT-RND-005 | 9.4 | Randomness con sorgente iniettabile e riproducibile (seed persistito) | MUST† | Assignment | DOM (porta RNG) | U, P | NOT_STARTED |
 | PRT-LCK-001 | 5.5 | EDITABLE → LOCKED all'avvio del torneo | MUST† | Assignment | DOM, TX | I | NOT_STARTED |
 | PRT-LCK-002 | 5.5 | Dopo LOCKED il player non modifica | MUST NOT | Assignment | DOM, APP | U, I | NOT_STARTED |
 | PRT-LCK-003 | 5.5 | Dopo LOCKED il TO MAY override | MAY | Assignment | APP | I | NOT_STARTED |
 | PRT-LCK-004 | 5.5, 13 | Ogni override genera audit con reason | MUST | Assignment, Audit | APP, TX | I | NOT_STARTED |
 | PRT-LCK-005 | 5.5, 4.2 | L'override preserva 3 distinti, pool, unicità RANDOM_DRAFT | MUST† | Assignment | DOM, DB | U, I | NOT_STARTED |
-| PRT-AUD-001 | 13 | Generazione/reroll Random Draft auditata | MUST | Assignment, Audit | APP, TX | I | BLOCKED(OD-005) |
+| PRT-AUD-001 | 13 | Generazione/reroll Random Draft auditata | MUST | Assignment, Audit | APP, TX | I | NOT_STARTED |
 | PRT-ERR-001 | 15 | Violazione regole di assignment → PROTOCOL_ASSIGNMENT_CONFLICT; < 3 Protocol → VALIDATION_ERROR | MUST† | Assignment | DOM | U, C | NOT_STARTED |
 
 ## 9. Tournament Engine: Round, pairing, float, bye, rematch (§4.3, §5.3, §7, §16)
@@ -156,12 +156,12 @@
 | TRN-RND-002 | 4.3 | Nessuno è accoppiato con sé stesso | MUST NOT | Tournament | DOM, DB (CHECK `a <> b`) | U, P | NOT_STARTED |
 | TRN-RND-003 | 4.3, 16 | Round N+1 non esiste mentre Round N non è FINALIZED | MUST NOT | Tournament | DOM, TX, DB | U, I | NOT_STARTED |
 | TRN-RND-004 | 4.3, 5.3 | Round FINALIZED immutabile, irreversibile | MUST | Tournament | DOM, DB (trigger reject UPDATE/DELETE) | U, I | NOT_STARTED |
-| TRN-RND-005 | 5.3 | State machine CREATED → PAIRINGS_READY → ACTIVE → READY_TO_FINALIZE → FINALIZED | MUST† | Tournament | DOM, OCC | U, P | BLOCKED(OD-010) |
+| TRN-RND-005 | 5.3 | State machine CREATED → PAIRINGS_READY → ACTIVE → READY_TO_FINALIZE → FINALIZED | MUST† | Tournament | DOM, OCC | U, P | NOT_STARTED |
 | TRN-RND-006 | 22.13 | Generazione Round usa esclusivamente stato finalizzato | MUST† | Tournament | APP (input solo da Round FINALIZED) | U, I | NOT_STARTED |
 | TRN-RND-007 | 22.5 | Round contiene tutti e soli i Participant attivi | MUST† | Tournament | DOM | P | NOT_STARTED |
 | TRN-RND-008 | 7.1 | Nessuna implementazione Swiss generica divergente dalla spec | MUST NOT | Tournament | PROC, ARCH (nessuna lib Swiss esterna) | P | NOT_STARTED |
 | TRN-REC-001 | 7.1, 7.2 | Record W-L; Record Group 0-0, poi per (W,L) | MUST† | Tournament | DOM | U | NOT_STARTED |
-| TRN-REC-002 | 7.2 | DRAW richiederebbe W-D-L; comportamento competitivo non inventato | MUST NOT | Tournament, Results | DOM (DRAW rifiutato dal motore) | U | BLOCKED(OD-007) |
+| TRN-REC-002 | 7.2 | DRAW richiederebbe W-D-L; comportamento competitivo non inventato | MUST NOT | Tournament, Results | DOM (DRAW rifiutato dal motore) | U | NOT_STARTED |
 | TRN-PAIR-001 | 7.3 | Ordine priorità: (1) no rematch, (2) stesso Record Group, (3) seeding nel gruppo, (4) float al gruppo inferiore, (5) minima distanza record, (6) rematch solo se inevitabile | MUST† | Tournament | DOM | P | NOT_STARTED |
 | TRN-PAIR-002 | 7.3 | Algoritmo libero (backtracking, matching…) ma non altera le priorità | MAY | Tournament | DOM | P (oracle brute-force su istanze piccole) | NOT_STARTED |
 | TRN-PAIR-003 | 16 | Generazione deterministica a parità di input e seed tecnico | MUST† | Tournament | DOM (nessuna iterazione su Map/Set non ordinati, nessun clock/RNG implicito) | P | NOT_STARTED |
@@ -170,7 +170,7 @@
 | TRN-FLT-002 | 7.4 | Scelta del float che massimizza il pairing globale (rematch, seeding) | SHOULD | Tournament | DOM | P | NOT_STARTED |
 | TRN-FLT-003 | 7.4 | Il float non altera il record del player | MUST NOT | Tournament | DOM | U, P | NOT_STARTED |
 | TRN-BYE-001 | 7.5 | Bye prodotto se i Participant attivi sono dispari; massimo un bye per Round | MUST† | Tournament | DOM, DB (UNIQUE parziale bye per round) | U, P, I | NOT_STARTED |
-| TRN-BYE-002 | 7.5, 4.5 | Bye vale come WIN, senza opponent, senza report, automaticamente FINAL | MUST† | Tournament, Results, Standings | DOM | U, I | BLOCKED(OD-011) |
+| TRN-BYE-002 | 7.5, 4.5 | Bye vale come WIN, senza opponent, senza report, automaticamente FINAL | MUST† | Tournament, Results, Standings | DOM | U, I | NOT_STARTED |
 | TRN-BYE-003 | 7.5 | Selezione: Record Group più basso appropriato → senza bye precedente → seeding più basso | MUST† | Tournament | DOM | P | NOT_STARTED |
 | TRN-BYE-004 | 7.5 | Nessun secondo bye se esiste un eleggibile senza bye | MUST NOT | Tournament | DOM | P | NOT_STARTED |
 | TRN-RMT-001 | 7.6 | Rematch evitato se esiste soluzione valida senza rematch | MUST | Tournament | DOM | P (oracle) | NOT_STARTED |
@@ -187,7 +187,7 @@
 | RES-INV-003 | 4.4, 16 | WIN di A ⇔ LOSS di B (outcome memorizzato una sola volta come `winner`) | MUST† | Results | DOM, DB (rappresentazione non ridondante) | U, P | NOT_STARTED |
 | RES-INV-004 | 4.4, 16 | Match DISPUTED impedisce finalizzazione del Round | MUST | Results, Tournament | TX | I | NOT_STARTED |
 | RES-INV-005 | 3.10 | Match è BO1 | MUST† | Results | DOM | U | NOT_STARTED |
-| RES-OUT-001 | 3.11 | Outcome normali WIN/LOSS; DRAW nel modello ma non normale | MUST† | Results | DOM, API | U, C | BLOCKED(OD-007) |
+| RES-OUT-001 | 3.11 | Outcome normali WIN/LOSS; DRAW nel modello ma non normale | MUST† | Results | DOM, API | U, C | NOT_STARTED |
 | RES-OUT-002 | 3.11 | UI standard non propone DRAW ai giocatori | SHOULD NOT | Web | UI | E | NOT_STARTED |
 | RES-SM-001 | 5.4 | PENDING → REPORTED → FINAL; REPORTED → DISPUTED → RESOLVED → FINAL; BYE → FINAL | MUST† | Results | DOM, OCC | U, P | NOT_STARTED |
 | RES-SM-002 | 5.4, 16 | Accettazione avversario MAY portare REPORTED → FINAL; accepted non richiede altre conferme | MAY | Results | DOM | U | NOT_STARTED |
@@ -204,7 +204,7 @@
 | ID | § | Requisito sintetico | Livello | Modulo | Enforcement | Test | Stato |
 |---|---|---|---|---|---|---|---|
 | STD-DER-001 | 2.9, 22.12 | Standings derivabili e riproducibili dai soli risultati finalizzati | MUST | Standings | DOM (funzione pura) | P (ricalcolo == snapshot) | NOT_STARTED |
-| STD-ORD-001 | 8 | Ordinamento: record W-L, OWR, H2H, SoS secondario, technical seed | MUST† | Standings | DOM | U, P | BLOCKED(OD-002b) |
+| STD-ORD-001 | 8 | Ordinamento: record W-L, OWR, H2H, SoS secondario, technical seed | MUST† | Standings | DOM | U, P | NOT_STARTED |
 | STD-SEED-001 | 8 | Technical seed stabile, non cambia per refresh | MUST | Standings / Participation | DB (valore persistito) | I | NOT_STARTED |
 | STD-SEED-002 | 8 | Technical seed non dipende dall'ordine di lettura DB | MUST NOT | Standings | DOM | P (shuffle input) | NOT_STARTED |
 | STD-SEED-003 | 8 | Ordinamento totale e riproducibile | MUST | Standings | DOM, DB (UNIQUE seed per event) | P | NOT_STARTED |
@@ -246,7 +246,7 @@
 | CONC-ROUND-002 | 14.3 | Due "Generate next round" concorrenti ⇒ un solo Round | MUST | Tournament | DB, TX | I | NOT_STARTED |
 | CONC-RES-001 | 14.4 | Report/dispute/accept con optimistic concurrency; versione obsoleta ⇒ CONCURRENT_MODIFICATION | MUST† | Results | OCC (`If-Match`/`version`) | I, C | NOT_STARTED |
 | CONC-RES-002 | 14.4 | Silent overwrite vietato | MUST NOT | Results | OCC | I | NOT_STARTED |
-| CONC-FIN-001 | 14.5 | Finalizzazione verifica atomicamente: Match risolti, zero dispute, nessuna modifica concorrente, standings calcolabili; altrimenti fallisce interamente | MUST | Tournament, Results, Standings | TX (lock Round + match rows), OCC | I | BLOCKED(OD-017) |
+| CONC-FIN-001 | 14.5 | Finalizzazione verifica atomicamente: Match risolti, zero dispute, nessuna modifica concorrente, standings calcolabili; altrimenti fallisce interamente | MUST | Tournament, Results, Standings | TX (lock Round + match rows), OCC | I | NOT_STARTED |
 | CONC-FIN-002 | 15 | ROUND_NOT_FINALIZABLE con elenco blocker | SHOULD | Tournament | DOM | U, C | NOT_STARTED |
 | CONC-FIN-003 | 16 | Dispute durante finalizzazione e Finalize simultaneo coperti da test | MUST | Tournament, Results | — | I | NOT_STARTED |
 | IDEM-001 | 14.6 | Idempotency per create registration, Random Draft, Start, Generate Round, report result, Finalize Round, Complete Tournament | SHOULD | Platform + moduli | IDEM (tabella chiavi, stessa TX) | I | NOT_STARTED |
@@ -266,7 +266,7 @@
 
 | ID | § | Requisito sintetico | Livello | Modulo | Enforcement | Test | Stato |
 |---|---|---|---|---|---|---|---|
-| TRN-LIFE-001 | 6, 13 | TO termina torneo (normale o early termination auditata) | MUST† | Event, Tournament | APP, TX | I | BLOCKED(OD-009) |
+| TRN-LIFE-001 | 6, 13 | TO termina torneo (normale o early termination auditata) | MUST† | Event, Tournament | APP, TX | I | NOT_STARTED |
 | TRN-LIFE-002 | 13 | Tournament start e Round finalization auditati | MUST | Event, Tournament, Audit | TX | I | NOT_STARTED |
 | TRN-LIFE-003 | 22 | Definition of Correctness (16 punti) verificata da suite e2e di torneo completo | MUST† | Tutti | — | E, P (simulazione tornei) | NOT_STARTED |
 
@@ -274,6 +274,6 @@
 
 ## Copertura
 
-- Requisiti tracciati: 174 righe (17 bloccate da decisioni aperte).
+- Requisiti tracciati: 174 righe (0 bloccate da decisioni aperte).
 - Righe bloccate da decisioni aperte: vedi colonna Stato; elenco in `open-decisions.md` §3.
 - Ogni nuovo change set MUST aggiornare la colonna Stato delle righe che tocca.

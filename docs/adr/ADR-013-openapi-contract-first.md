@@ -1,8 +1,8 @@
 # ADR-013: OpenAPI contract-first
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §1, §10; ARCH-STACK-004, *-API-*
 - **Change set impattati:** CS-00 e tutti gli endpoint
 

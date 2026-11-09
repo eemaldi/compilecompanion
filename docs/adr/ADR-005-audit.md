@@ -1,8 +1,8 @@
 # ADR-005: Audit sincrono e append-only
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §2.10, §10, §13, AP-05; AUD-*
 - **Change set impattati:** CS-02 e tutti i CS con operazioni auditate
 

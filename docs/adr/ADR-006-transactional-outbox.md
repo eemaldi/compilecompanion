@@ -1,8 +1,8 @@
 # ADR-006: Transactional outbox
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §1, §12, §21; OUT-OBX-001/002, NOTIF-001
 - **Change set impattati:** CS-02
 

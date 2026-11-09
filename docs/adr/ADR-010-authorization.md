@@ -1,8 +1,8 @@
 # ADR-010: Modello di authorization e tenant isolation
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §2.1, §2.2, §3.3, §6, §16; AUTH-*, ORG-*, IDN-USER-002, OD-012, OD-018
 - **Change set impattati:** CS-03, CS-04 e tutti gli endpoint
 

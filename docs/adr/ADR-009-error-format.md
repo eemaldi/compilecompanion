@@ -1,8 +1,8 @@
 # ADR-009: Formato degli errori HTTP
 
-- **Stato:** Proposed
+- **Stato:** Accepted
 - **Data:** 2026-11-09
-- **Approvatore:** —
+- **Approvatore:** Enrico Emaldi (product owner), 2026-11-09
 - **Requisiti spec:** §15; ERR-FMT-001/002, ERR-INT-001
 - **Change set impattati:** CS-02 e tutti gli endpoint
 
