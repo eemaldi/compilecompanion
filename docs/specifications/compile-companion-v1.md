@@ -471,7 +471,9 @@ La capacità Random Draft è:
 
 `floor(numero Protocol disponibili / 3)`
 
-Il sistema MUST NOT avviare registrazioni oltre la capacità Random Draft configurata senza esplicita modifica del Protocol Pool.
+Il sistema MUST NOT accettare registrazioni oltre la capacità Random Draft dell'Event.
+
+Poiché il Protocol Pool è immutabile dopo la creazione dell'Event (§9.2), anche la capacità Random Draft è fissata alla creazione.
 
 ---
 
@@ -879,13 +881,15 @@ Ogni Product produce un set di Protocol.
 
 ## 9.2 Event Pool
 
-Durante la configurazione il TO seleziona uno o più Product.
+Alla creazione dell'Event il TO seleziona uno o più Product.
+
+La selezione dei Product MUST NOT essere modificata dopo la creazione dell'Event, in nessuno stato e da nessun attore.
 
 Il sistema calcola:
 
 `EventProtocolPool = union(Protocols of selected Products)`
 
-L'Event deve conservare la configurazione utilizzata.
+L'EventProtocolPool MUST essere calcolato e conservato come snapshot alla creazione dell'Event.
 
 Future modifiche al catalogo MUST NOT modificare retroattivamente i tornei già iniziati o conclusi.
 
