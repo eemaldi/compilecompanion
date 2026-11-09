@@ -43,7 +43,7 @@ Definizioni:
 
 La priorità 5 (minimizzare la distanza fra record) è assorbita dal vincolo di float: con distanza massima di un gruppo, ridurre la distanza equivale a ridurre `F`.
 
-**Domanda ancora da chiudere:** (d).
+OD-002 è chiuso.
 
 ## Parte B: algoritmo (decidibile dopo la Parte A)
 
