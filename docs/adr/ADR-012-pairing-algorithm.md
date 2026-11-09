@@ -1,6 +1,6 @@
 # ADR-012: Algoritmo e funzione obiettivo del pairing
 
-- **Stato:** Draft — non approvabile finché OD-002 non è chiuso
+- **Stato:** Draft — non approvabile finché OD-002 (d) non è chiuso
 - **Data:** 2026-11-09
 - **Approvatore:** —
 - **Requisiti spec:** §7, §16 Pairing/Bye; TRN-PAIR-*, TRN-FLT-*, TRN-BYE-*, TRN-RMT-*, OD-002
@@ -26,18 +26,24 @@ Definizioni:
 
    Il punto 4 è da confermare: implica che evitare i rematch prevalga sulla scelta del bye "più basso".
 
-**Costo del pairing:** vettore confrontato lessicograficamente, da minimizzare:
-1. `R` = numero di rematch (priorità 1 e 6);
-2. `D` = Σ |W(a) − W(b)| sui match (priorità 2, 4, 5: accoppiare nello stesso gruppo costa 0, un float di un gruppo costa 1, di due gruppi costa 2);
-3. `F` = numero di Participant accoppiati fuori dal proprio gruppo;
-4. `S` = Σ, nei soli match intra-gruppo, dello scostamento dal pairing di riferimento per rank nel gruppo (priorità 3).
+**Decisioni di prodotto ricevute (2026-11-09, OD-002):**
+- **(a)** Il float scende **al massimo di un gruppo**. Se non esiste un pairing senza rematch rispettando questo limite, si accetta il rematch.
+- **(b)** Il pairing di riferimento dentro un gruppo è **adiacente**: rank 1 contro 2, 3 contro 4, e così via.
+- **(c)** Da un gruppo dispari scende il Participant con il **rank più basso** del gruppo.
+- **(d)** *Ancora aperta:* il bye si sceglie prima del pairing (proposta) o dentro l'ottimizzazione globale?
+- **(e)** Il numero di float precedenti **non** fa parte della v1.
 
-**Domande da chiudere** (OD-002):
-- **(a)** È corretto che, pur di evitare un rematch, si accetti un float di due o più gruppi? La formalizzazione dice di sì (R prima di D). L'alternativa è "float al massimo di un gruppo; se impossibile senza rematch, rematch".
-- **(b)** Il pairing di riferimento intra-gruppo per la priorità 3 è "1 contro 2, 3 contro 4" (adiacente) oppure "metà alta contro metà bassa" (1 contro n/2+1, stile Swiss classico)?
-- **(c)** Chi float dal gruppo dispari: il rank più basso del gruppo superiore (proposta)?
-- **(d)** Il bye è scelto prima del pairing (proposta) o come parte dell'ottimizzazione globale?
-- **(e)** Il numero precedente di float (§7.4) è citato "se tale metrica verrà introdotta": confermare che **non** fa parte della v1.
+**Vincolo di float (hard, conseguenza di (a)):** si numerano da 0 i Record Group *non vuoti*, in ordine decrescente di record (`gidx`). Ogni match deve avere `|gidx(a) − gidx(b)| ≤ 1`. Il vincolo usa i gruppi non vuoti perché, se un gruppo intermedio è vuoto, il gruppo "immediatamente inferiore" è il successivo non vuoto. Il vincolo è sempre soddisfacibile: accoppiando i Participant consecutivi nell'ordine per (gruppo, rank) si ottiene sempre un pairing valido. Quindi non genera mai `PAIRING_IMPOSSIBLE` se P ≥ 2.
+
+**Costo del pairing:** vettore confrontato lessicograficamente, da minimizzare, sui pairing che rispettano il vincolo di float:
+1. `R`: numero di rematch (priorità 1 e 6; per (a) il rematch si accetta solo dentro il vincolo di float);
+2. `F`: numero di match tra gruppi diversi (priorità 2 e 4);
+3. `Fr`: preferenza per far scendere il rank più basso (decisione (c)). Si confronta il vettore dei rank dei Participant che scendono, ordinato per gruppo, preferendo rank più bassi;
+4. `S`: scostamento dal pairing adiacente dentro il gruppo (decisione (b), priorità 3). Si misura come Σ |rank(a) − rank(b)| − 1 sui match dello stesso gruppo; il pairing 1-2, 3-4 ha `S = 0`.
+
+La priorità 5 (minimizzare la distanza fra record) è assorbita dal vincolo di float: con distanza massima di un gruppo, ridurre la distanza equivale a ridurre `F`.
+
+**Domanda ancora da chiudere:** (d).
 
 ## Parte B: algoritmo (decidibile dopo la Parte A)
 
@@ -64,4 +70,4 @@ Definizioni:
 - Esempi worked (5-8 scenari) approvati dal product owner come golden test.
 
 ## Domande aperte
-OD-002 (a)-(e).
+OD-002 (d): momento della selezione del bye.

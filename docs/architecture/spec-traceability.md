@@ -55,7 +55,7 @@
 | ID | § | Requisito sintetico | Livello | Modulo | Enforcement | Test | Stato |
 |---|---|---|---|---|---|---|---|
 | ORG-TEN-001 | 2.2, 4.1 | Ogni Event appartiene a esattamente una Organization | MUST | Event | DOM, DB (`organization_id NOT NULL`, immutabile) | U, I | NOT_STARTED |
-| ORG-TEN-002 | 2.2 | Organizzatore individuale opera tramite una Organization | MUST† | Organization | APP | I | BLOCKED(OD-012) |
+| ORG-TEN-002 | 2.2 | Organizzatore individuale opera tramite una Organization | MUST† | Organization | APP | I | NOT_STARTED |
 | ORG-TEN-003 | 2.2 | Organization MAY essere invisibile all'utente nell'MVP | MAY | Organization (UI) | — | — | NOT_STARTED |
 | ORG-MEM-001 | 3.3 | Membership con userId, organizationId, role, status; ruoli OWNER, TO, MEMBER | MUST† | Organization | DOM, DB | U, I | NOT_STARTED |
 | ORG-MEM-002 | 3.3 | Ruoli estendibili senza modifica strutturale | MUST | Organization | DOM (role come value object/lookup) | U | NOT_STARTED |
@@ -86,7 +86,7 @@
 | ID | § | Requisito sintetico | Livello | Modulo | Enforcement | Test | Stato |
 |---|---|---|---|---|---|---|---|
 | CAT-MOD-001 | 9.1 | Gerarchia Game → Product → Protocol | MUST† | Catalog | DOM, DB (FK) | U, I | NOT_STARTED |
-| CAT-MOD-002 | 2.3 | Catalogo iniziale: Main 1-3 (12 Protocol ciascuno), Aux 1-3 (3 ciascuno) | MUST† | Catalog | DB (seed migration) | I | BLOCKED(OD-013) |
+| CAT-MOD-002 | 2.3 | Catalogo iniziale: Main 1-3 (12 Protocol ciascuno), Aux 1-3 (3 ciascuno) | MUST† | Catalog | DB (seed migration) | I | NOT_STARTED |
 | CAT-MOD-003 | 2.3 | Supporto futuri Product senza modifica strutturale | MUST | Catalog | DOM, DB | U | NOT_STARTED |
 | CAT-MOD-004 | 3.4 | Product con identità stabile indipendente dal nome | MUST | Catalog | DB (id/code stabili) | U, I | NOT_STARTED |
 | CAT-MOD-005 | 3.5 | Protocol appartiene esattamente a un Product | MUST† | Catalog | DB (`product_id NOT NULL` FK) | I | NOT_STARTED |
@@ -205,7 +205,7 @@
 |---|---|---|---|---|---|---|---|
 | STD-DER-001 | 2.9, 22.12 | Standings derivabili e riproducibili dai soli risultati finalizzati | MUST | Standings | DOM (funzione pura) | P (ricalcolo == snapshot) | NOT_STARTED |
 | STD-ORD-001 | 8 | Ordinamento: record W-L, OWR, H2H, SoS secondario, technical seed | MUST† | Standings | DOM | U, P | BLOCKED(OD-002b) |
-| STD-SEED-001 | 8 | Technical seed stabile, non cambia per refresh | MUST | Standings / Participation | DB (valore persistito) | I | BLOCKED(OD-015) |
+| STD-SEED-001 | 8 | Technical seed stabile, non cambia per refresh | MUST | Standings / Participation | DB (valore persistito) | I | NOT_STARTED |
 | STD-SEED-002 | 8 | Technical seed non dipende dall'ordine di lettura DB | MUST NOT | Standings | DOM | P (shuffle input) | NOT_STARTED |
 | STD-SEED-003 | 8 | Ordinamento totale e riproducibile | MUST | Standings | DOM, DB (UNIQUE seed per event) | P | NOT_STARTED |
 | STD-EXT-001 | 8 | Design estendibile a competitive seeding e H2H avanzato; Engine indipendente dall'implementazione concreta | MUST | Standings, Tournament | ARCH (porta `SeedingPolicy`) | A | NOT_STARTED |
@@ -274,6 +274,6 @@
 
 ## Copertura
 
-- Requisiti tracciati: 174 righe (28 bloccate da decisioni aperte).
+- Requisiti tracciati: 174 righe (25 bloccate da decisioni aperte).
 - Righe bloccate da decisioni aperte: vedi colonna Stato; elenco in `open-decisions.md` §3.
 - Ogni nuovo change set MUST aggiornare la colonna Stato delle righe che tocca.

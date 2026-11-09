@@ -21,7 +21,7 @@ Approvazione: cambio di stato a `Accepted` con nome dell'approvatore e data, in 
 | [ADR-009](ADR-009-error-format.md) | Formato degli errori HTTP | Proposed | CS-02 |
 | [ADR-010](ADR-010-authorization.md) | Modello di authorization e tenant isolation | Proposed | CS-04 |
 | [ADR-011](ADR-011-randomness.md) | Randomness riproducibile | Proposed | CS-10, CS-11 |
-| [ADR-012](ADR-012-pairing-algorithm.md) | Algoritmo e funzione obiettivo del pairing | Draft (attende OD-002) | CS-12b |
+| [ADR-012](ADR-012-pairing-algorithm.md) | Algoritmo e funzione obiettivo del pairing | Draft (attende OD-002 d) | CS-12b |
 | [ADR-013](ADR-013-openapi-contract-first.md) | OpenAPI contract-first | Proposed | CS-00 |
 
 Template: [ADR-000-template.md](ADR-000-template.md).

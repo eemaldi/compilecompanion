@@ -15,7 +15,7 @@ Random Draft e (in base a OD-015) il technical seed richiedono casualità. Il do
 3. Il seed alimenta un PRNG deterministico (**xoshiro256\*\***, implementazione interna con test vector). L'algoritmo è un Fisher–Yates shuffle su un input **ordinato canonicamente** (per `protocolId` e per `participantId`), così l'output dipende solo da seed e insieme di input, non dall'ordine di lettura dal DB.
 4. Seed e versione dell'algoritmo (`algorithmVersion`) sono persistiti con il draft (`assignment.random_draft`) e nell'audit entry. Lo stesso seed sullo stesso input riproduce sempre lo stesso risultato.
 5. Il seed non è esposto ai player. È visibile solo ai TO tramite audit, per evitare che si possa prevedere un reroll.
-6. **Technical seed (in attesa di OD-015):** proposta di una permutazione casuale dei Participant attivi all'avvio, con la stessa procedura. Il valore risultante (intero 1..P) è persistito su `participation.participant.technical_seed` con UNIQUE `(event_id, technical_seed)` e non viene mai ricalcolato.
+6. **Technical seed (OD-015, confermato il 2026-11-09):** una permutazione casuale dei Participant attivi all'avvio, con la stessa procedura. Il valore risultante (intero 1..P) è persistito su `participation.participant.technical_seed` con UNIQUE `(event_id, technical_seed)` e non viene mai ricalcolato.
 
 ## Alternative considerate
 - **CSPRNG diretto senza seed persistito:** sicuro, ma non riproducibile né verificabile. Scartata.
@@ -30,4 +30,4 @@ Random Draft e (in base a OD-015) il technical seed richiedono casualità. Il do
 - Property test: stesso seed + input permutato ⇒ stesso output; distribuzione uniforme verificata statisticamente con tolleranza.
 
 ## Domande aperte
-- OD-015 (origine del technical seed) va confermato dal prodotto.
+Nessuna. OD-015 è stato confermato il 2026-11-09.

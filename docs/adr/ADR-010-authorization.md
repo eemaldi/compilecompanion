@@ -23,8 +23,8 @@ Clerk è limitato all'authentication e l'authorization è interna. Il ruolo in u
    - TO = tutti tranne `MEMBERSHIP_MANAGE`;
    - MEMBER = nessuno.
 
-   I ruoli sono una tabella di mapping, estendibile senza modifiche strutturali (ORG-MEM-002). **Da confermare con OD-018.**
-4. **Azioni da player:** sono autorizzate in base alla *relazione* con la risorsa, non alla membership. Esempi: "è il Participant di questo match", "è lo User di questo Participant". Un player non deve essere membro dell'Organization (OD-018).
+   I ruoli sono una tabella di mapping, estendibile senza modifiche strutturali (ORG-MEM-002). Mapping confermato dal product owner il 2026-11-09 (OD-018).
+4. **Azioni da player:** sono autorizzate in base alla *relazione* con la risorsa, non alla membership. Esempi: "è il Participant di questo match", "è lo User di questo Participant". Un player non deve essere membro dell'Organization (OD-018, confermato).
 5. **Dove si controlla:** nell'application service, sempre. I guard Nest fanno solo l'authentication. Ogni use case dichiara il permesso richiesto e chiama `AuthorizationService.assertPermission(actor, organizationId, permission)`.
 6. **Tenant scoping dei repository:** i metodi di lettura e scrittura di dati tenant-scoped richiedono un `OrgScope` (ricavato dalla risorsa e verificato) e aggiungono sempre `WHERE organization_id = $scope`. Per accedere per id si risolve prima la risorsa con lo scope.
 7. **NOT_FOUND vs FORBIDDEN:**
@@ -33,7 +33,7 @@ Clerk è limitato all'authentication e l'authorization è interna. Il ruolo in u
 
    In questo modo un ID valido di un altro tenant non è distinguibile da un ID inesistente (AUTH-TENANT-003).
 8. **Eventi pubblici (OD-016):** le letture anonime passano da query dedicate che espongono solo campi pubblici. Non c'è uno scope bypass generico.
-9. **Organization personale (OD-012):** proposta di creazione esplicita, una sola volta, alla prima azione "diventa organizzatore", con l'utente come OWNER. **Da confermare.**
+9. **Organization personale (OD-012):** proposta di creazione esplicita, una sola volta, alla prima azione "diventa organizzatore", con l'utente come OWNER. Confermato il 2026-11-09.
 10. **Platform Administrator:** non implementato nella v1. Nessun bypass di tenant nel codice.
 11. **Row-Level Security PostgreSQL:** non adottata nel MVP. Lo scoping a livello di repository più i test a matrice sono ritenuti sufficienti; RLS è candidata come difesa in profondità in un ADR futuro.
 
@@ -52,4 +52,4 @@ Clerk è limitato all'authentication e l'authorization è interna. Il ruolo in u
 - Test: claim di ruolo Clerk falsificati non hanno effetto.
 
 ## Domande aperte
-- OD-012 (Organization personale) e OD-018 (mapping ruoli): servono conferme di prodotto.
+Nessuna. OD-012 e OD-018 sono stati confermati il 2026-11-09.
